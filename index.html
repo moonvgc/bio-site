@@ -71,7 +71,43 @@
             </div>
         </div>
 
-        <div class="player-bar fade-seq fs4" id="playerBar">
+        <div class="section fade-seq fs4">
+            <p class="section-header">domains</p>
+            <div class="socials-grid">
+                <a href="https://scenecore.life" class="social-link" target="_blank">
+                    <span class="icon-wrap"><span class="iconify" data-icon="mdi:web" style="font-size:15px;"></span></span>
+                    <span>scenecore.life</span>
+                    <span class="arrow">→</span>
+                </a>
+                    <a href="https://cutelittle.baby" class="social-link" target="_blank">
+                    <span class="icon-wrap"><span class="iconify" data-icon="mdi:web" style="font-size:15px;"></span></span>
+                    <span>cutelittle.baby</span>
+                    <span class="arrow">→</span>
+                </a>
+                    <a href="https://cutlust.lol" class="social-link" target="_blank">
+                    <span class="icon-wrap"><span class="iconify" data-icon="mdi:web" style="font-size:15px;"></span></span>
+                    <span>cutlust.lol</span>
+                    <span class="arrow">→</span>
+                </a>
+                    <a href="https://nomnomcat.lol" class="social-link" target="_blank">
+                    <span class="icon-wrap"><span class="iconify" data-icon="mdi:web" style="font-size:15px;"></span></span>
+                    <span>nomnomcat.lol</span>
+                    <span class="arrow">→</span>
+                </a>
+                    <a href="https://nomnomnom.xyz" class="social-link" target="_blank">
+                    <span class="icon-wrap"><span class="iconify" data-icon="mdi:web" style="font-size:15px;"></span></span>
+                    <span>nomnomnom.xyz</span>
+                    <span class="arrow">→</span>
+                </a>
+                    <a href="https://niggercats.xyz" class="social-link" target="_blank">
+                    <span class="icon-wrap"><span class="iconify" data-icon="mdi:web" style="font-size:15px;"></span></span>
+                    <span>niggercats.xyz</span>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="player-bar fade-seq fs5" id="playerBar">
             <div class="track-info">
                 <span class="track-name" id="trackName">1.mp3</span>
                 <span class="track-artist">vgc</span>
@@ -116,97 +152,69 @@
     <audio id="bgMusic" preload="auto"></audio>
 
     <script>
-        // ── Bouncing Words ──
+        // ── Snow Effect ──
         (function() {
             const c = document.getElementById('bounceCanvas');
             const ctx = c.getContext('2d');
-            let W, H, cardRect;
+            let W, H;
 
-            const words = ['skid', 'paster', 'larp', 'loser', 'No Name', 'Detected', 'leak shit'];
-            const colors = ['#78716c', '#a8a29e', '#57534e', '#c7c5c3', '#6b7280'];
-
-            function getCardRect() {
-                const el = document.querySelector('.card');
-                if (el) cardRect = el.getBoundingClientRect();
-            }
-
-            class Bouncer {
+            class Flake {
                 constructor() {
-                    this.word = words[Math.floor(Math.random() * words.length)];
-                    this.color = colors[Math.floor(Math.random() * colors.length)];
-                    this.size = 14 + Math.random() * 10;
-                    ctx.font = `bold ${this.size}px Inter, sans-serif`;
-                    this.w = ctx.measureText(this.word).width + 20;
-                    this.h = this.size + 10;
-                    do {
-                        this.x = Math.random() * (W - this.w);
-                        this.y = Math.random() * (H - this.h);
-                    } while (this.overlapsCard());
-                    this.speedX = (0.6 + Math.random() * 0.8) * (Math.random() > 0.5 ? 1 : -1);
-                    this.speedY = (0.6 + Math.random() * 0.8) * (Math.random() > 0.5 ? 1 : -1);
-                    this.opacity = 0.55 + Math.random() * 0.3;
-                }
-
-                overlapsCard() {
-                    if (!cardRect) return false;
-                    const pad = 10;
-                    return this.x + this.w > cardRect.left - pad && this.x < cardRect.right + pad &&
-                           this.y + this.h > cardRect.top - pad && this.y < cardRect.bottom + pad;
+                    this.x = Math.random() * W;
+                    this.y = Math.random() * H;
+                    this.r = 1.5 + Math.random() * 3;
+                    this.speed = 0.3 + Math.random() * 0.8;
+                    this.wind = (Math.random() - 0.5) * 0.3;
+                    this.opacity = 0.2 + Math.random() * 0.5;
                 }
 
                 update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-
-                    if (this.x <= 0 || this.x + this.w >= W) this.speedX *= -1;
-                    if (this.y <= 0 || this.y + this.h >= H) this.speedY *= -1;
-
-                    if (cardRect && this.overlapsCard()) {
-                        const cx = cardRect.left, cy = cardRect.top;
-                        const cw = cardRect.width, ch = cardRect.height;
-                        const overlapLeft = (this.x + this.w) - cx;
-                        const overlapRight = (cx + cw) - this.x;
-                        const overlapTop = (this.y + this.h) - cy;
-                        const overlapBottom = (cy + ch) - this.y;
-                        const min = Math.min(overlapLeft, overlapRight, overlapTop, overlapBottom);
-                        if (min === overlapLeft || min === overlapRight) this.speedX *= -1;
-                        else this.speedY *= -1;
+                    this.y += this.speed;
+                    this.x += this.wind;
+                    if (this.y > H + 5) {
+                        this.y = -5;
+                        this.x = Math.random() * W;
                     }
+                    if (this.x > W + 5) this.x = -5;
+                    if (this.x < -5) this.x = W + 5;
                 }
 
                 draw() {
-                    ctx.font = `bold ${this.size}px Inter, sans-serif`;
                     ctx.globalAlpha = this.opacity;
-                    ctx.fillStyle = this.color;
-                    ctx.fillText(this.word, this.x, this.y + this.size);
+                    ctx.fillStyle = '#e7e5e4';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                    ctx.fill();
                     ctx.globalAlpha = 1;
                 }
             }
 
-            let bouncers = [];
+            let flakes = [];
 
             function resize() {
                 W = c.width = window.innerWidth;
                 H = c.height = window.innerHeight;
-                getCardRect();
-                bouncers = [];
-                const count = Math.min(12, Math.floor((W * H) / 50000));
-                for (let i = 0; i < count; i++) bouncers.push(new Bouncer());
+                const count = Math.min(120, Math.floor((W * H) / 12000));
+                flakes = [];
+                for (let i = 0; i < count; i++) {
+                    const f = new Flake();
+                    f.y = Math.random() * H;
+                    flakes.push(f);
+                }
             }
 
             resize();
             window.addEventListener('resize', resize);
-            window.addEventListener('scroll', getCardRect);
 
             function animate() {
                 ctx.clearRect(0, 0, W, H);
-                for (const b of bouncers) {
-                    b.update();
-                    b.draw();
+                for (const f of flakes) {
+                    f.update();
+                    f.draw();
                 }
                 requestAnimationFrame(animate);
             }
-            animate();
+            requestAnimationFrame(animate);
         })();
 
         // ── Audio ──
@@ -218,7 +226,7 @@
             { src: '1.mp3', name: 'грустинка', artist: 'onokami' },
             { src: '2.mp3', name: 'ангелочек (alternative version)', artist: 'onokami' },
             { src: '3.mp3', name: 'byebye (prod. by aoshi)', artist: 'emoslut666' },
-            { src: '4   .mp3', name: 'specialsadism', artist: 'emosl4t696' },
+            { src: '4.mp3', name: 'specialsadism', artist: 'emosl4t696' },
             // Add more songs here:
             // { src: '2.mp3', name: 'Track Name', artist: 'Artist' },
         ];
@@ -305,11 +313,15 @@
             timeDisplay.textContent = '0:00 / ' + fmt(audio.duration);
         });
 
-        progressWrap.addEventListener('click', (e) => {
+        function seekAudio(e) {
             if (!audio.duration) return;
             const rect = progressWrap.getBoundingClientRect();
-            audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
-        });
+            const x = e.touches ? e.touches[0].clientX : e.clientX;
+            audio.currentTime = ((x - rect.left) / rect.width) * audio.duration;
+        }
+
+        progressWrap.addEventListener('click', seekAudio);
+        progressWrap.addEventListener('touchstart', seekAudio, { passive: true });
 
         prevBtn.addEventListener('click', () => {
             if (audio.currentTime > 3) {
