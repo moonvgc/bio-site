@@ -15,10 +15,12 @@
 
     <div class="corner-glow tl"></div>
     <div class="corner-glow br"></div>
+    <div class="bg-accent-glow"></div>
 
     <div class="layout">
 
         <div class="block header-block fade-seq fs1">
+            <div class="drag-handle"></div>
             <div class="discord-profile">
                 <div class="profile-avatar" id="profileAvatar">
                     <img src="" alt="" id="avatarImg">
@@ -124,6 +126,7 @@
         </div>
 
         <div class="block player-block span-2 fade-seq fs6" id="playerBlock">
+            <div class="drag-handle"></div>
             <div class="player-top">
                 <div class="track-info">
                     <span class="track-name" id="trackName">грустинка</span>
@@ -185,6 +188,10 @@
             const ctx = c.getContext('2d');
             let W, H;
 
+            function getCSSVar(name, fallback) {
+                return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+            }
+
             function resize() {
                 W = c.width = window.innerWidth;
                 H = c.height = window.innerHeight;
@@ -212,7 +219,7 @@
                 }
                 draw() {
                     ctx.globalAlpha = this.o;
-                    ctx.fillStyle = '#a8a29e';
+                    ctx.fillStyle = getCSSVar('--particle-color', '#a8a29e');
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
                     ctx.fill();
@@ -227,6 +234,8 @@
             function animate() {
                 ctx.clearRect(0, 0, W, H);
 
+                const lineColor = getCSSVar('--particle-line', '#78716c');
+
                 for (const p of particles) {
                     p.update();
                     p.draw();
@@ -239,7 +248,7 @@
                         const dist = Math.sqrt(dx * dx + dy * dy);
                         if (dist < 120) {
                             ctx.globalAlpha = (1 - dist / 120) * 0.15;
-                            ctx.strokeStyle = '#78716c';
+                            ctx.strokeStyle = lineColor;
                             ctx.lineWidth = 0.5;
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
@@ -398,8 +407,13 @@
             audio.currentTime = ((x - rect.left) / rect.width) * audio.duration;
         }
 
-        progressWrap.addEventListener('click', seekAudio);
-        progressWrap.addEventListener('touchstart', seekAudio, { passive: true });
+        let seeking = false;
+        progressWrap.addEventListener('mousedown', (e) => { seeking = true; seekAudio(e); });
+        document.addEventListener('mousemove', (e) => { if (seeking) seekAudio(e); });
+        document.addEventListener('mouseup', () => { seeking = false; });
+        progressWrap.addEventListener('touchstart', (e) => { seeking = true; seekAudio(e); }, { passive: true });
+        progressWrap.addEventListener('touchmove', (e) => { if (seeking) seekAudio(e); }, { passive: true });
+        progressWrap.addEventListener('touchend', () => { seeking = false; });
 
         prevBtn.addEventListener('click', () => {
             if (audio.currentTime > 3) {
@@ -596,6 +610,11 @@
 
                         if (msg.op === 0 && msg.d) {
                             applyStatus(msg.d);
+                            if (msg.d.spotify && msg.d.spotify.album_art_url) {
+                                applySpotifyTheme(msg.d.spotify);
+                            } else {
+                                revertTheme();
+                            }
                         }
 
                         if (msg.op === 1 && msg.d?.heartbeat_interval) {
@@ -629,6 +648,156 @@
         }
 
         connectWS();
+
+        // ── Spotify Theme ──
+        let lastSpotifyAlbumArt = null;
+        let themeExtracting = false;
+
+        function rgbToHex(r, g, b) {
+            return '#' + [r,g,b].map(x => Math.round(x).toString(16).padStart(2,'0')).join('');
+        }
+
+        function extractColors(imgUrl) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => {
+                    const c = document.createElement('canvas');
+                    const ctx = c.getContext('2d');
+                    c.width = 50; c.height = 50;
+                    ctx.drawImage(img, 0, 0, 50, 50);
+                    const d = ctx.getImageData(0, 0, 50, 50).data;
+                    const map = {};
+                    for (let i = 0; i < d.length; i += 4) {
+                        const r = Math.floor(d[i] / 20) * 20;
+                        const g = Math.floor(d[i+1] / 20) * 20;
+                        const b = Math.floor(d[i+2] / 20) * 20;
+                        const key = r+','+g+','+b;
+                        map[key] = (map[key] || 0) + 1;
+                    }
+                    const sorted = Object.entries(map).sort((a,b) => b[1]-a[1]);
+                    const colors = sorted.slice(0, 5).map(([k]) => {
+                        const [r,g,b] = k.split(',').map(Number);
+                        return { r, g, b };
+                    });
+                    resolve(colors);
+                };
+                img.onerror = () => resolve([]);
+                img.src = imgUrl;
+            });
+        }
+
+        function applySpotifyTheme(spotify) {
+            if (!spotify || !spotify.album_art_url) return;
+            if (spotify.album_art_url === lastSpotifyAlbumArt) return;
+            if (themeExtracting) return;
+
+            lastSpotifyAlbumArt = spotify.album_art_url;
+            themeExtracting = true;
+
+            extractColors(spotify.album_art_url).then(colors => {
+                if (!colors || colors.length < 2) {
+                    themeExtracting = false;
+                    return;
+                }
+
+                const p = colors[0], s = colors[1], t = colors[2] || colors[0];
+
+                const bgR = p.r * 0.10, bgG = p.g * 0.10, bgB = p.b * 0.10;
+                document.documentElement.style.setProperty('--bg-color', `rgb(${bgR},${bgG},${bgB})`);
+                document.documentElement.style.setProperty('--album-bg', `rgb(${bgR},${bgG},${bgB})`);
+
+                document.documentElement.style.setProperty('--accent', rgbToHex(p.r, p.g, p.b));
+
+                const lr = p.r + (255 - p.r) * 0.45;
+                const lg = p.g + (255 - p.g) * 0.45;
+                const lb = p.b + (255 - p.b) * 0.45;
+                document.documentElement.style.setProperty('--accent-light', rgbToHex(lr, lg, lb));
+
+                document.documentElement.style.setProperty('--glow-tl', rgbToHex(s.r, s.g, s.b));
+                document.documentElement.style.setProperty('--glow-br', rgbToHex(t.r, t.g, t.b));
+
+                document.documentElement.style.setProperty('--album-overlay', `url(${spotify.album_art_url})`);
+
+                document.documentElement.style.setProperty('--particle-color', rgbToHex(p.r, p.g, p.b));
+                document.documentElement.style.setProperty('--particle-line', rgbToHex(s.r, s.g, s.b));
+
+                document.body.classList.add('spotify-active');
+                themeExtracting = false;
+            });
+        }
+
+        function revertTheme() {
+            document.body.classList.remove('spotify-active');
+            document.documentElement.style.removeProperty('--bg-color');
+            document.documentElement.style.removeProperty('--album-bg');
+            document.documentElement.style.removeProperty('--accent');
+            document.documentElement.style.removeProperty('--accent-light');
+            document.documentElement.style.removeProperty('--glow-tl');
+            document.documentElement.style.removeProperty('--glow-br');
+            document.documentElement.style.removeProperty('--album-overlay');
+            document.documentElement.style.removeProperty('--particle-color');
+            document.documentElement.style.removeProperty('--particle-line');
+            lastSpotifyAlbumArt = null;
+        }
+
+        // ── Drag Blocks ──
+        let dragState = null;
+
+        function getTranslate(block) {
+            const m = block.style.transform.match(/translate\(([-\d.]+)px,\s*([-\d.]+)px\)/);
+            return m ? { x: parseFloat(m[1]), y: parseFloat(m[2]) } : { x: 0, y: 0 };
+        }
+
+        function resetBlock(block) {
+            block.style.transform = '';
+        }
+
+        function startDrag(e) {
+            const handle = e.target.closest('.block-label') || e.target.closest('.drag-handle');
+            if (!handle) return;
+            const block = handle.closest('.block');
+            if (!block) return;
+            const pos = getTranslate(block);
+            const ct = e.touches ? e.touches[0] : e;
+            dragState = {
+                block: block,
+                startX: ct.clientX,
+                startY: ct.clientY,
+                offsetX: pos.x,
+                offsetY: pos.y,
+            };
+            block.classList.add('dragging');
+            e.preventDefault();
+        }
+
+        function moveDrag(e) {
+            if (!dragState) return;
+            const ct = e.touches ? e.touches[0] : e;
+            const dx = ct.clientX - dragState.startX + dragState.offsetX;
+            const dy = ct.clientY - dragState.startY + dragState.offsetY;
+            dragState.block.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+        }
+
+        function endDrag() {
+            if (!dragState) return;
+            dragState.block.classList.remove('dragging');
+            dragState = null;
+        }
+
+        document.addEventListener('mousedown', startDrag);
+        document.addEventListener('mousemove', moveDrag);
+        document.addEventListener('mouseup', endDrag);
+        document.addEventListener('touchstart', startDrag, { passive: false });
+        document.addEventListener('touchmove', moveDrag, { passive: false });
+        document.addEventListener('touchend', endDrag);
+
+        document.querySelectorAll('.block-label, .drag-handle').forEach(el => {
+            el.addEventListener('dblclick', () => {
+                const block = el.closest('.block');
+                if (block) resetBlock(block);
+            });
+        });
 
         // ── Social link hover ──
         document.querySelectorAll('.social-link').forEach(link => {
