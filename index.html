@@ -542,10 +542,22 @@
 
             const custom = d.activities?.find(a => a.type === 4);
             if (custom?.state) {
-                customStatusEl.textContent = custom.state;
+                let html = '';
+                if (custom.emoji) {
+                    if (custom.emoji.id) {
+                        const ext = custom.emoji.animated ? 'gif' : 'png';
+                        html += '<img class="status-emoji" src="https://cdn.discordapp.com/emojis/' + custom.emoji.id + '.' + ext + '" alt="' + (custom.emoji.name || '') + '">';
+                    } else if (custom.emoji.name) {
+                        html += '<span class="status-emoji">' + custom.emoji.name + '</span>';
+                    }
+                }
+                html += custom.state.replace(/<a?:(\w+):(\d+)>/g, (_, name, id) => {
+                    return '<img class="status-emoji" src="https://cdn.discordapp.com/emojis/' + id + '.png" alt="' + name + '">';
+                });
+                customStatusEl.innerHTML = html;
                 customStatusEl.style.display = 'block';
             } else {
-                customStatusEl.textContent = '';
+                customStatusEl.innerHTML = '';
                 customStatusEl.style.display = 'none';
             }
 
