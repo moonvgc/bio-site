@@ -300,8 +300,27 @@ body.spotify-active::after {
     color: #b5bac1;
     font-weight: 400;
     display: none;
-    margin-top: 2px;
+    margin-top: 4px;
     line-height: 1.4;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 4px 10px;
+    width: fit-content;
+}
+
+.spotify-active .profile-custom-status {
+    border-color: color-mix(in srgb, var(--accent) 20%, rgba(255,255,255,0.06));
+    color: color-mix(in srgb, var(--accent-light) 40%, #b5bac1);
+}
+
+.status-emoji {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 3px;
+    object-fit: contain;
+    display: inline;
 }
 
 .profile-activities {
