@@ -6,123 +6,132 @@
     <title>vgc</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <canvas id="bounceCanvas"></canvas>
+    <canvas id="bgCanvas"></canvas>
 
-    <div class="card">
+    <div class="corner-glow tl"></div>
+    <div class="corner-glow br"></div>
 
-        <div class="section fade-seq fs1">
-            <p class="section-header">about</p>
-            <p class="bio-text">
+    <div class="layout">
+
+        <div class="block header-block fade-seq fs1">
+            <div class="discord-profile">
+                <div class="profile-avatar" id="profileAvatar">
+                    <img src="" alt="" id="avatarImg">
+                    <span class="avatar-status" id="avatarStatusDot"></span>
+                </div>
+                <div class="profile-info">
+                    <div class="profile-name-row">
+                        <span class="profile-name" id="profileName">Loading...</span>
+                        <span class="profile-tag" id="profileTag"></span>
+                    </div>
+                    <div class="profile-badge-row" id="profileBadgeRow">
+                        <span class="status-indicator" id="statusDot"></span>
+                        <span class="profile-status-text" id="statusText">offline</span>
+                        <span class="profile-sep">•</span>
+                        <span class="profile-id">ID: 1494187385058099210</span>
+                    </div>
+                    <div class="profile-custom-status" id="customStatus"></div>
+                    <div class="profile-activities" id="activities"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block fade-seq fs2">
+            <p class="block-label">about</p>
+            <p class="block-body">
                 16 years old, from Germany.<br>
-                Deeply interested in <em>game hacking</em> most of my knowledge comes from there.
+                Deeply interested in <em>game hacking</em> — most of my knowledge comes from there.
             </p>
+            <div class="stat-row">
+                <div class="stat">
+                    <span class="stat-num">16</span>
+                    <span class="stat-label">years old</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">DE</span>
+                    <span class="stat-label">location</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">∞</span>
+                    <span class="stat-label">passion</span>
+                </div>
+            </div>
         </div>
 
-        <div class="section fade-seq fs2">
-            <p class="section-header">languages</p>
+        <div class="block fade-seq fs3">
+            <p class="block-label">languages</p>
             <div class="skills-wrap">
-                <a href="https://isocpp.org/" target="_blank" class="skill-tag skill-cpp"><span class="iconify" data-icon="simple-icons:cplusplus"></span>C++</a>
-                <a href="https://learn.microsoft.com/en-us/dotnet/csharp/" target="_blank" class="skill-tag skill-cs"><span class="iconify" data-icon="simple-icons:csharp"></span>C#</a>
-                <a href="https://python.org/" target="_blank" class="skill-tag skill-py"><span class="iconify" data-icon="simple-icons:python"></span>Python</a>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" class="skill-tag skill-html"><span class="iconify" data-icon="simple-icons:html5"></span>HTML</a>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" class="skill-tag skill-css"><span class="iconify" data-icon="simple-icons:css3"></span>CSS</a>
-                <a href="https://php.net/" target="_blank" class="skill-tag skill-php"><span class="iconify" data-icon="simple-icons:php"></span>PHP</a>
-                <a href="https://lua.org/" target="_blank" class="skill-tag skill-lua"><span class="iconify" data-icon="simple-icons:lua"></span>Lua</a>
-                <a href="https://java.com/" target="_blank" class="skill-tag skill-java"><span class="iconify" data-icon="simple-icons:java"></span>Java</a>
-                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="skill-tag skill-js"><span class="iconify" data-icon="simple-icons:javascript"></span>JS</a>
-                <a href="https://go.dev/" target="_blank" class="skill-tag skill-go"><span class="iconify" data-icon="simple-icons:go"></span>Go</a>
-                <a href="https://rust-lang.org/" target="_blank" class="skill-tag skill-rust"><span class="iconify" data-icon="simple-icons:rust"></span>Rust</a>
+                <a href="https://isocpp.org/" target="_blank" class="skill-tag" data-color="#00599C"><span class="iconify" data-icon="simple-icons:cplusplus"></span>C++</a>
+                <a href="https://learn.microsoft.com/en-us/dotnet/csharp/" target="_blank" class="skill-tag" data-color="#9B4993"><span class="iconify" data-icon="simple-icons:csharp"></span>C#</a>
+                <a href="https://python.org/" target="_blank" class="skill-tag" data-color="#3776AB"><span class="iconify" data-icon="simple-icons:python"></span>Python</a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" class="skill-tag" data-color="#E34F26"><span class="iconify" data-icon="simple-icons:html5"></span>HTML</a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" class="skill-tag" data-color="#1572B6"><span class="iconify" data-icon="simple-icons:css3"></span>CSS</a>
+                <a href="https://php.net/" target="_blank" class="skill-tag" data-color="#777BB4"><span class="iconify" data-icon="simple-icons:php"></span>PHP</a>
+                <a href="https://lua.org/" target="_blank" class="skill-tag" data-color="#000080"><span class="iconify" data-icon="simple-icons:lua"></span>Lua</a>
+                <a href="https://java.com/" target="_blank" class="skill-tag" data-color="#ED8B00"><span class="iconify" data-icon="simple-icons:java"></span>Java</a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="skill-tag" data-color="#F7DF1E"><span class="iconify" data-icon="simple-icons:javascript"></span>JS</a>
+                <a href="https://go.dev/" target="_blank" class="skill-tag" data-color="#00ADD8"><span class="iconify" data-icon="simple-icons:go"></span>Go</a>
+                <a href="https://rust-lang.org/" target="_blank" class="skill-tag" data-color="#DEA584"><span class="iconify" data-icon="simple-icons:rust"></span>Rust</a>
             </div>
         </div>
 
-        <div class="section fade-seq fs3">
-            <p class="section-header">socials</p>
+        <div class="block fade-seq fs4">
+            <p class="block-label">socials</p>
             <div class="socials-grid">
-                <a href="https://www.tiktok.com/@m8x4r2qv7n1k9t5b3z6p0sdf" class="social-link" target="_blank">
-                    <span class="icon-wrap icon-tiktok"><span class="iconify" data-icon="simple-icons:tiktok" style="font-size:15px;"></span></span>
-                    <span>TikTok</span>
-                    <span class="arrow">→</span>
+                <a href="https://www.tiktok.com/@m8x4r2qv7n1k9t5b3z6p0sdf" class="social-link" target="_blank" data-accent="#ff0050">
+                    <span class="social-icon"><span class="iconify" data-icon="simple-icons:tiktok"></span></span>
+                    <span class="social-name">TikTok</span>
+                    <span class="social-arrow">→</span>
                 </a>
-                <a href="https://www.instagram.com/maxim133.7/" class="social-link" target="_blank">
-                    <span class="icon-wrap icon-instagram"><span class="iconify" data-icon="simple-icons:instagram" style="font-size:15px;"></span></span>
-                    <span>Instagram</span>
-                    <span class="arrow">→</span>
+                <a href="https://www.instagram.com/maxim133.7/" class="social-link" target="_blank" data-accent="#E4405F">
+                    <span class="social-icon"><span class="iconify" data-icon="simple-icons:instagram"></span></span>
+                    <span class="social-name">Instagram</span>
+                    <span class="social-arrow">→</span>
                 </a>
-                <a href="https://discord.com/users/1494187385058099210" class="social-link" id="discordLink">
-                    <span class="icon-wrap icon-discord"><span class="iconify" data-icon="simple-icons:discord" style="font-size:15px;"></span></span>
-                    <span>Discord</span>
-                    <span class="arrow">→</span>
+                <a href="https://discord.com/users/1494187385058099210" class="social-link" id="discordLink" data-accent="#5865F2">
+                    <span class="social-icon"><span class="iconify" data-icon="simple-icons:discord"></span></span>
+                    <span class="social-name">Discord</span>
+                    <span class="social-arrow">→</span>
                 </a>
-                <a href="https://github.com/moonvgc" class="social-link" target="_blank">
-                    <span class="icon-wrap"><span class="iconify" data-icon="simple-icons:github" style="font-size:15px;"></span></span>
-                    <span>GitHub</span>
-                    <span class="arrow">→</span>
+                <a href="https://github.com/moonvgc" class="social-link" target="_blank" data-accent="#fff">
+                    <span class="social-icon"><span class="iconify" data-icon="simple-icons:github"></span></span>
+                    <span class="social-name">GitHub</span>
+                    <span class="social-arrow">→</span>
                 </a>
-                <a href="https://guns.lol/vgc" class="social-link" target="_blank">
-                    <span class="icon-wrap"><img src="https://assets.guns.lol/guns_logo_no_background_cropped.png" alt="guns.lol"></span>
-                    <span>guns.lol</span>
-                    <span class="arrow">→</span>
-                </a>
-            </div>
-        </div>
-
-        <div class="section fade-seq fs4">
-            <p class="section-header">domains</p>
-            <div class="socials-grid">
-                <a href="https://scenecore.life" class="social-link" target="_blank">
-                    <span class="icon-wrap"><span class="iconify" data-icon="mdi:web" style="font-size:15px;"></span></span>
-                    <span>scenecore.life</span>
-                    <span class="arrow">→</span>
-                </a>
-                    <a href="https://cutelittle.baby" class="social-link" target="_blank">
-                    <span class="icon-wrap"><span class="iconify" data-icon="mdi:web" style="font-size:15px;"></span></span>
-                    <span>cutelittle.baby</span>
-                    <span class="arrow">→</span>
-                </a>
-                    <a href="https://cutlust.lol" class="social-link" target="_blank">
-                    <span class="icon-wrap"><span class="iconify" data-icon="mdi:web" style="font-size:15px;"></span></span>
-                    <span>cutlust.lol</span>
-                    <span class="arrow">→</span>
-                </a>
-                    <a href="https://nomnomcat.lol" class="social-link" target="_blank">
-                    <span class="icon-wrap"><span class="iconify" data-icon="mdi:web" style="font-size:15px;"></span></span>
-                    <span>nomnomcat.lol</span>
-                    <span class="arrow">→</span>
-                </a>
-                    <a href="https://nomnomnom.xyz" class="social-link" target="_blank">
-                    <span class="icon-wrap"><span class="iconify" data-icon="mdi:web" style="font-size:15px;"></span></span>
-                    <span>nomnomnom.xyz</span>
-                    <span class="arrow">→</span>
-                </a>
-                    <a href="https://niggercats.xyz" class="social-link" target="_blank">
-                    <span class="icon-wrap"><span class="iconify" data-icon="mdi:web" style="font-size:15px;"></span></span>
-                    <span>blackcats.xyz</span>
-                    <span class="arrow">→</span>
+                <a href="https://guns.lol/vgc" class="social-link" target="_blank" data-accent="#ff6b35">
+                    <span class="social-icon"><img src="https://assets.guns.lol/guns_logo_no_background_cropped.png" alt="guns.lol"></span>
+                    <span class="social-name">guns.lol</span>
+                    <span class="social-arrow">→</span>
                 </a>
             </div>
         </div>
 
-        <div class="player-bar fade-seq fs5" id="playerBar">
-            <div class="track-info">
-                <span class="track-name" id="trackName">1.mp3</span>
-                <span class="track-artist">vgc</span>
+        <div class="block fade-seq fs5">
+            <p class="block-label">domains</p>
+            <div class="domain-grid">
+                <a href="https://scenecore.life" class="domain-chip" target="_blank">scenecore.life</a>
+                <a href="https://cutelittle.baby" class="domain-chip" target="_blank">cutelittle.baby</a>
+                <a href="https://cutlust.lol" class="domain-chip" target="_blank">cutlust.lol</a>
+                <a href="https://nomnomcat.lol" class="domain-chip" target="_blank">nomnomcat.lol</a>
+                <a href="https://nomnomnom.xyz" class="domain-chip" target="_blank">nomnomnom.xyz</a>
+                <a href="https://niggercats.xyz" class="domain-chip" target="_blank">niggercats.xyz</a>
             </div>
+        </div>
 
-            <div class="controls-group">
-                <button class="ctrl-btn skip" id="skipBackBtn" title="−10s">
-                    <span class="iconify" data-icon="mdi:skip-previous" style="font-size:17px;"></span>
-                </button>
-                <button class="ctrl-btn" id="playBtn">
-                    <span class="iconify" data-icon="mdi:play" style="font-size:17px;" id="playIcon"></span>
-                </button>
-                <button class="ctrl-btn skip" id="skipFwdBtn" title="+10s">
-                    <span class="iconify" data-icon="mdi:skip-next" style="font-size:17px;"></span>
-                </button>
+        <div class="block player-block span-2 fade-seq fs6" id="playerBlock">
+            <div class="player-top">
+                <div class="track-info">
+                    <span class="track-name" id="trackName">грустинка</span>
+                    <span class="track-artist" id="trackArtist">onokami</span>
+                </div>
+                <div class="equalizer" id="eqBars">
+                    <span></span><span></span><span></span><span></span>
+                </div>
             </div>
 
             <div class="progress-wrap" id="progressWrap">
@@ -131,16 +140,34 @@
                 </div>
             </div>
 
-            <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+            <div class="player-bottom">
+                <div class="time-display">
+                    <span id="currentTime">0:00</span>
+                    <span class="time-sep">/</span>
+                    <span id="totalTime">0:00</span>
+                </div>
 
-            <div class="vol-wrap">
-                <button class="vol-btn" id="volBtn">
-                    <span class="iconify" data-icon="mdi:volume-high" style="font-size:15px;" id="volIcon"></span>
-                </button>
-                <div class="vol-slider" id="volSlider">
-                    <div class="vol-bg"></div>
-                    <div class="vol-fill" id="volFill" style="width:80%;"></div>
-                    <div class="vol-thumb" id="volThumb" style="left:80%;"></div>
+                <div class="controls-group">
+                    <button class="ctrl-btn" id="skipBackBtn">
+                        <span class="iconify" data-icon="mdi:rewind-10"></span>
+                    </button>
+                    <button class="ctrl-btn play-btn" id="playBtn">
+                        <span class="iconify" data-icon="mdi:play" id="playIcon"></span>
+                    </button>
+                    <button class="ctrl-btn" id="skipFwdBtn">
+                        <span class="iconify" data-icon="mdi:fast-forward-10"></span>
+                    </button>
+                </div>
+
+                <div class="vol-control">
+                    <button class="vol-btn" id="volBtn">
+                        <span class="iconify" data-icon="mdi:volume-high" id="volIcon"></span>
+                    </button>
+                    <div class="vol-slider" id="volSlider">
+                        <div class="vol-track"></div>
+                        <div class="vol-fill" id="volFill"></div>
+                        <div class="vol-thumb" id="volThumb"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,36 +179,40 @@
     <audio id="bgMusic" preload="auto"></audio>
 
     <script>
-        // ── Snow Effect ──
+        // ── Particle Field ──
         (function() {
-            const c = document.getElementById('bounceCanvas');
+            const c = document.getElementById('bgCanvas');
             const ctx = c.getContext('2d');
             let W, H;
 
-            class Flake {
+            function resize() {
+                W = c.width = window.innerWidth;
+                H = c.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            const particles = [];
+            const count = Math.min(80, Math.floor((W * H) / 18000));
+
+            class Particle {
                 constructor() {
                     this.x = Math.random() * W;
                     this.y = Math.random() * H;
-                    this.r = 1.5 + Math.random() * 3;
-                    this.speed = 0.3 + Math.random() * 0.8;
-                    this.wind = (Math.random() - 0.5) * 0.3;
-                    this.opacity = 0.2 + Math.random() * 0.5;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.r = Math.random() * 1.5 + 0.5;
+                    this.o = Math.random() * 0.4 + 0.1;
                 }
-
                 update() {
-                    this.y += this.speed;
-                    this.x += this.wind;
-                    if (this.y > H + 5) {
-                        this.y = -5;
-                        this.x = Math.random() * W;
-                    }
-                    if (this.x > W + 5) this.x = -5;
-                    if (this.x < -5) this.x = W + 5;
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > W) this.vx *= -1;
+                    if (this.y < 0 || this.y > H) this.vy *= -1;
                 }
-
                 draw() {
-                    ctx.globalAlpha = this.opacity;
-                    ctx.fillStyle = '#e7e5e4';
+                    ctx.globalAlpha = this.o;
+                    ctx.fillStyle = '#a8a29e';
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
                     ctx.fill();
@@ -189,33 +220,80 @@
                 }
             }
 
-            let flakes = [];
-
-            function resize() {
-                W = c.width = window.innerWidth;
-                H = c.height = window.innerHeight;
-                const count = Math.min(120, Math.floor((W * H) / 12000));
-                flakes = [];
-                for (let i = 0; i < count; i++) {
-                    const f = new Flake();
-                    f.y = Math.random() * H;
-                    flakes.push(f);
-                }
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
             }
-
-            resize();
-            window.addEventListener('resize', resize);
 
             function animate() {
                 ctx.clearRect(0, 0, W, H);
-                for (const f of flakes) {
-                    f.update();
-                    f.draw();
+
+                for (const p of particles) {
+                    p.update();
+                    p.draw();
                 }
+
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.globalAlpha = (1 - dist / 120) * 0.15;
+                            ctx.strokeStyle = '#78716c';
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                            ctx.globalAlpha = 1;
+                        }
+                    }
+                }
+
                 requestAnimationFrame(animate);
             }
             requestAnimationFrame(animate);
         })();
+
+        // ── Equalizer ──
+        const eqBars = document.getElementById('eqBars');
+        const bars = eqBars.querySelectorAll('span');
+        let eqInterval = null;
+
+        function animateEQ() {
+            let maxHeight = 0;
+            for (const b of bars) {
+                const h = Math.random() * 14 + 2;
+                b.style.height = h + 'px';
+                if (h > maxHeight) maxHeight = h;
+            }
+            for (const b of bars) {
+                if (parseFloat(b.style.height) === maxHeight) {
+                    b.style.background = '#d6d3d1';
+                } else {
+                    b.style.background = '#57534e';
+                }
+            }
+        }
+
+        function startEQ() {
+            if (eqInterval) return;
+            animateEQ();
+            eqInterval = setInterval(animateEQ, 180);
+            eqBars.classList.add('active');
+        }
+
+        function stopEQ() {
+            if (eqInterval) {
+                clearInterval(eqInterval);
+                eqInterval = null;
+            }
+            for (const b of bars) {
+                b.style.height = '3px';
+                b.style.background = '#44403c';
+            }
+            eqBars.classList.remove('active');
+        }
 
         // ── Audio ──
         const audio = document.getElementById('bgMusic');
@@ -227,19 +305,17 @@
             { src: '2.mp3', name: 'ангелочек (alternative version)', artist: 'onokami' },
             { src: '3.mp3', name: 'byebye (prod. by aoshi)', artist: 'emoslut666' },
             { src: '4.mp3', name: 'specialsadism', artist: 'emosl4t696' },
-            // Add more songs here:
-            // { src: '2.mp3', name: 'Track Name', artist: 'Artist' },
         ];
 
         const playBtn = document.getElementById('playBtn');
         const playIcon = document.getElementById('playIcon');
         const progressFill = document.getElementById('progressFill');
         const progressWrap = document.getElementById('progressWrap');
-        const timeDisplay = document.getElementById('timeDisplay');
-        const trackName = document.getElementById('trackName');
-        const trackNameParent = document.querySelector('.track-name');
-        const trackArtistParent = document.querySelector('.track-artist');
-        const playerBar = document.getElementById('playerBar');
+        const currentTimeEl = document.getElementById('currentTime');
+        const totalTimeEl = document.getElementById('totalTime');
+        const trackNameEl = document.getElementById('trackName');
+        const trackArtistEl = document.getElementById('trackArtist');
+        const playerBlock = document.getElementById('playerBlock');
         const prevBtn = document.getElementById('skipBackBtn');
         const nextBtn = document.getElementById('skipFwdBtn');
         const volBtn = document.getElementById('volBtn');
@@ -250,7 +326,6 @@
 
         let volDragging = false;
         let currentVol = 80;
-
         audio.volume = 0.8;
 
         function loadTrack(index) {
@@ -260,8 +335,8 @@
             const track = playlist[currentTrack];
             audio.src = track.src;
             audio.load();
-            document.querySelector('.track-name').textContent = track.name;
-            document.querySelector('.track-artist').textContent = track.artist;
+            trackNameEl.textContent = track.name;
+            trackArtistEl.textContent = track.artist;
             if (musicPlaying) {
                 audio.play().catch(() => { musicPlaying = false; syncUI(); });
             }
@@ -285,12 +360,14 @@
         function syncUI() {
             if (musicPlaying) {
                 playIcon.setAttribute('data-icon', 'mdi:pause');
-                playBtn.classList.add('playing');
-                playerBar.classList.add('playing');
+                playBtn.classList.add('is-playing');
+                playerBlock.classList.add('playing');
+                startEQ();
             } else {
                 playIcon.setAttribute('data-icon', 'mdi:play');
-                playBtn.classList.remove('playing');
-                playerBar.classList.remove('playing');
+                playBtn.classList.remove('is-playing');
+                playerBlock.classList.remove('playing');
+                stopEQ();
             }
         }
 
@@ -305,12 +382,13 @@
         audio.addEventListener('timeupdate', () => {
             if (audio.duration) {
                 progressFill.style.width = (audio.currentTime / audio.duration * 100) + '%';
-                timeDisplay.textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
+                currentTimeEl.textContent = fmt(audio.currentTime);
+                totalTimeEl.textContent = fmt(audio.duration);
             }
         });
 
         audio.addEventListener('loadedmetadata', () => {
-            timeDisplay.textContent = '0:00 / ' + fmt(audio.duration);
+            totalTimeEl.textContent = fmt(audio.duration);
         });
 
         function seekAudio(e) {
@@ -365,8 +443,6 @@
         });
 
         updateVol(80);
-
-        // Load first track
         loadTrack(0);
 
         // ── Discord ──
@@ -376,6 +452,196 @@
                 const t = document.getElementById('toast');
                 t.classList.add('show');
                 setTimeout(() => t.classList.remove('show'), 1500);
+            });
+        });
+
+        // ── Skill tag hover glow ──
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', () => {
+                const color = tag.dataset.color;
+                tag.style.setProperty('--glow', color);
+                tag.style.borderColor = color;
+                tag.style.color = '#f5f5f4';
+                const icon = tag.querySelector('.iconify');
+                if (icon) icon.style.opacity = '1';
+            });
+            tag.addEventListener('mouseleave', () => {
+                tag.style.borderColor = '';
+                tag.style.color = '';
+                const icon = tag.querySelector('.iconify');
+                if (icon) icon.style.opacity = '';
+            });
+        });
+
+        // ── Discord Status (Lanyard WebSocket) ──
+        const avatarImg = document.getElementById('avatarImg');
+        const avatarStatusDot = document.getElementById('avatarStatusDot');
+        const profileName = document.getElementById('profileName');
+        const profileTag = document.getElementById('profileTag');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const customStatusEl = document.getElementById('customStatus');
+        const activitiesEl = document.getElementById('activities');
+        const USER_ID = '1494187385058099210';
+
+        let ws = null;
+        let hbInterval = null;
+
+        const ACTIVITY_NAMES = {
+            0: 'Playing', 1: 'Streaming', 2: 'Listening to',
+            3: 'Watching', 5: 'Competing in'
+        };
+
+        function activityIcon(a, spotify) {
+            if (a.assets?.large_image) {
+                const img = a.assets.large_image;
+                if (img.startsWith('spotify:')) {
+                    return 'https://i.scdn.co/image/' + img.slice(8);
+                }
+                if (img.startsWith('mp:external/')) {
+                    return img.slice(12);
+                }
+                if (a.application_id) {
+                    return 'https://cdn.discordapp.com/app-assets/' + a.application_id + '/' + img + '.png';
+                }
+            }
+            if (spotify?.album_art_url) return spotify.album_art_url;
+            return null;
+        }
+
+        function applyStatus(d) {
+            const status = d.discord_status || 'offline';
+
+            avatarStatusDot.className = 'avatar-status ' + status;
+            statusDot.className = 'status-indicator ' + status;
+            const labels = { online: 'online', idle: 'idle', dnd: 'do not disturb', offline: 'offline' };
+            statusText.textContent = labels[status] || 'offline';
+
+            if (d.discord_user) {
+                const u = d.discord_user;
+                profileName.textContent = u.global_name || u.username;
+                profileTag.textContent = '@' + u.username;
+                if (u.avatar) {
+                    avatarImg.src = 'https://cdn.discordapp.com/avatars/' + USER_ID + '/' + u.avatar + '.png?size=64';
+                }
+            }
+
+            const custom = d.activities?.find(a => a.type === 4);
+            if (custom?.state) {
+                customStatusEl.textContent = custom.state;
+                customStatusEl.style.display = 'block';
+            } else {
+                customStatusEl.textContent = '';
+                customStatusEl.style.display = 'none';
+            }
+
+            activitiesEl.innerHTML = '';
+            const others = d.activities?.filter(a => a.type !== 4) || [];
+
+            for (const a of others) {
+                const el = document.createElement('div');
+                el.className = 'activity-item';
+
+                const isSpotify = a.name === 'Spotify' && a.type === 2;
+                const icon = isSpotify ? activityIcon(a, d.spotify) : activityIcon(a, null);
+                if (icon) {
+                    const img = document.createElement('img');
+                    img.className = 'activity-icon';
+                    img.src = icon;
+                    img.alt = '';
+                    el.appendChild(img);
+                } else {
+                    const fallback = document.createElement('span');
+                    fallback.className = 'activity-icon-fallback iconify';
+                    const ICONS = { 0: 'mdi:gamepad-variant-outline', 1: 'mdi:broadcast', 2: 'mdi:music', 3: 'mdi:television', 5: 'mdi:trophy' };
+                    fallback.setAttribute('data-icon', ICONS[a.type] || 'mdi:gamepad-variant');
+                    el.appendChild(fallback);
+                }
+
+                const text = document.createElement('div');
+                text.className = 'activity-text';
+
+                const line1 = document.createElement('div');
+                line1.className = 'activity-line1';
+                const typeLabel = ACTIVITY_NAMES[a.type];
+                line1.textContent = typeLabel ? typeLabel + ' ' + a.name : a.name;
+
+                const line2 = document.createElement('div');
+                line2.className = 'activity-line2';
+                const parts = [];
+                if (a.details) parts.push(a.details);
+                if (a.state) parts.push(a.state);
+                line2.textContent = parts.join(' — ');
+
+                text.appendChild(line1);
+                text.appendChild(line2);
+                el.appendChild(text);
+                activitiesEl.appendChild(el);
+            }
+        }
+
+        function connectWS() {
+            if (ws && (ws.readyState === 0 || ws.readyState === 1)) return;
+
+            try {
+                ws = new WebSocket('wss://api.lanyard.rest/socket');
+
+                ws.onopen = () => {
+                    ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: USER_ID } }));
+                };
+
+                ws.onmessage = (e) => {
+                    try {
+                        const msg = JSON.parse(e.data);
+
+                        if (msg.op === 0 && msg.d) {
+                            applyStatus(msg.d);
+                        }
+
+                        if (msg.op === 1 && msg.d?.heartbeat_interval) {
+                            clearInterval(hbInterval);
+                            hbInterval = setInterval(() => {
+                                if (ws?.readyState === 1) ws.send(JSON.stringify({ op: 3 }));
+                            }, msg.d.heartbeat_interval);
+                        }
+
+                        if (msg.op === 3) {
+                            if (ws?.readyState === 1) ws.send(JSON.stringify({ op: 3 }));
+                        }
+                    } catch (err) {
+                        console.warn('WS msg error:', err);
+                    }
+                };
+
+                ws.onclose = () => {
+                    clearInterval(hbInterval);
+                    ws = null;
+                    setTimeout(connectWS, 3000);
+                };
+
+                ws.onerror = () => {
+                    if (ws) ws.close();
+                };
+
+            } catch {
+                setTimeout(connectWS, 3000);
+            }
+        }
+
+        connectWS();
+
+        // ── Social link hover ──
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                const accent = link.dataset.accent;
+                if (accent) {
+                    const icon = link.querySelector('.social-icon .iconify');
+                    if (icon) icon.style.color = accent;
+                }
+            });
+            link.addEventListener('mouseleave', () => {
+                const icon = link.querySelector('.social-icon .iconify');
+                if (icon) icon.style.color = '';
             });
         });
     </script>
