@@ -94,8 +94,34 @@
             </div>
         </section>
 
-        <!-- Section 3: Skills & Tools -->
+        <!-- Section 3: Last.fm Stats -->
         <section class="section sec-cards" data-sec="3">
+            <div class="sec-inner">
+                <h2 class="sec-title">last.fm stats</h2>
+                <div class="card stats-card" id="statsCard">
+                    <div class="stats-empty" id="statsEmpty">loading...</div>
+                    <div class="stats-body" id="statsBody" style="display:none">
+                        <div class="stats-hero">
+                            <span class="stats-hero-num" id="statsScrobbles">0</span>
+                            <span class="stats-hero-label">scrobbles</span>
+                        </div>
+                        <div class="stats-cols">
+                            <div class="stats-col">
+                                <div class="stats-col-title">top artists</div>
+                                <div class="stats-list" id="statsArtists"></div>
+                            </div>
+                            <div class="stats-col">
+                                <div class="stats-col-title">top tracks</div>
+                                <div class="stats-list" id="statsTracks"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Skills & Tools -->
+        <section class="section sec-cards" data-sec="4">
             <div class="sec-inner">
                 <h2 class="sec-title">skills & tools</h2>
                 <div class="card skills-card">
@@ -125,8 +151,8 @@
             </div>
         </section>
 
-        <!-- Section 4: Links -->
-        <section class="section sec-cards" data-sec="4">
+        <!-- Section 5: Links -->
+        <section class="section sec-cards" data-sec="5">
             <div class="sec-inner">
                 <h2 class="sec-title">links</h2>
                 <div class="card contact-card">
@@ -463,6 +489,43 @@
         renderTracks();
         fetchLastfm();
         setInterval(fetchLastfm, 60000);
+
+        // Last.fm Stats
+        async function fetchStats() {
+            try {
+                const res = await fetch('/api/lastfm-stats');
+                const data = await res.json();
+                const body = document.getElementById('statsBody');
+                const empty = document.getElementById('statsEmpty');
+                if (!data.playcount && !data.topArtists?.length) {
+                    empty.textContent = 'no stats available';
+                    return;
+                }
+                empty.style.display = 'none';
+                body.style.display = '';
+
+                document.getElementById('statsScrobbles').textContent = parseInt(data.playcount || 0).toLocaleString('de-DE');
+
+                const artistList = document.getElementById('statsArtists');
+                artistList.innerHTML = data.topArtists.map((a, i) =>
+                    '<a class="stats-item" href="' + a.url + '" target="_blank">' +
+                        '<span class="stats-item-idx">' + (i + 1) + '.</span>' +
+                        '<span class="stats-item-name">' + escapeHtml(a.name) + '</span>' +
+                        '<span class="stats-item-count">' + parseInt(a.playcount).toLocaleString('de-DE') + '</span>' +
+                    '</a>'
+                ).join('');
+
+                const trackList = document.getElementById('statsTracks');
+                trackList.innerHTML = data.topTracks.map((t, i) =>
+                    '<a class="stats-item" href="' + t.url + '" target="_blank">' +
+                        '<span class="stats-item-idx">' + (i + 1) + '.</span>' +
+                        '<span class="stats-item-name">' + escapeHtml(t.name) + '</span>' +
+                        '<span class="stats-item-count">' + parseInt(t.playcount).toLocaleString('de-DE') + '</span>' +
+                    '</a>'
+                ).join('');
+            } catch {}
+        }
+        fetchStats();
     </script>
 
 </body>
