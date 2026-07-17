@@ -511,6 +511,108 @@ a, button, [role="button"] {
     font-variant-numeric: tabular-nums;
 }
 
+/* Stats Card */
+.stats-card {
+    padding: 24px 28px;
+}
+
+.stats-empty {
+    font-size: 12px;
+    color: var(--text-faint);
+    text-align: center;
+    padding: 28px 20px;
+    font-style: italic;
+}
+
+.stats-hero {
+    text-align: center;
+    padding: 8px 0 20px;
+}
+
+.stats-hero-num {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text-color);
+    display: block;
+}
+
+.stats-hero-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    margin-top: 2px;
+}
+
+.stats-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 480px) {
+    .stats-cols {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+.stats-col-title {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+}
+
+.stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stats-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: background var(--t-fast), color var(--t-fast);
+    font-size: 13px;
+}
+
+.stats-item:hover {
+    background: rgba(var(--fg), 0.04);
+    color: var(--text-color);
+}
+
+.stats-item-idx {
+    font-size: 10px;
+    color: var(--text-faint);
+    font-variant-numeric: tabular-nums;
+    width: 16px;
+    flex-shrink: 0;
+    text-align: right;
+}
+
+.stats-item-name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.stats-item-count {
+    font-size: 10px;
+    color: var(--text-faint);
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+}
+
 /* Skills Card */
 .skills-card {
     padding: 24px 28px;
