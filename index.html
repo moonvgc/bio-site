@@ -1,175 +1,268 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bio Page</title>
+    <title>vgc</title>
+    <meta name="description" content="Hi.">
+    <link href="https://fonts.cdnfonts.com/css/chillax" rel="stylesheet">
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;650;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="video-bg">
-        <video autoplay muted loop playsinline poster="">
-            <source src="background.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
-    </div>
+    <nav class="nav-dots" id="navDots"></nav>
 
-    <div class="container">
+    <main class="sections">
 
-        <!-- Discord Profile (with socials at bottom) -->
-        <div class="profile-card">
-            <div class="profile-main">
-                <div class="dp-avatar" id="dpAvatar">
-                    <img src="" alt="" id="avatarImg">
-                    <span class="dp-status" id="avatarStatusDot"></span>
-                </div>
-                <div class="dp-info">
-                    <div class="dp-name-row">
-                        <span class="dp-name" id="profileName">Loading...</span>
-                    </div>
-                    <span class="dp-tag" id="profileTag"></span>
-                    <div class="dp-meta">
-                        <span id="statusText">offline</span>
-                        <span class="dp-divider"></span>
-                        <span class="dp-id">1494187385058099210</span>
-                        <button class="dp-copy" id="copyIdBtn" title="Copy ID">
-                            <span class="iconify" data-icon="mdi:content-copy"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="status-bar" id="customStatus"></div>
-            <div class="activity-list" id="activities"></div>
-            <div class="socials-row">
-                <a href="https://www.tiktok.com/@imst1llsober" class="social-icon-link" target="_blank" title="TikTok">
-                    <span class="iconify" data-icon="simple-icons:tiktok"></span>
-                </a>
-                <a href="https://www.instagram.com/maxim133.7/" class="social-icon-link" target="_blank" title="Instagram">
-                    <span class="iconify" data-icon="simple-icons:instagram"></span>
-                </a>
-                <a href="https://discord.com/users/1494187385058099210" class="social-icon-link" id="discordLink" title="Discord">
-                    <span class="iconify" data-icon="simple-icons:discord"></span>
-                </a>
-                <a href="https://github.com/moonvgc" class="social-icon-link" target="_blank" title="GitHub">
-                    <span class="iconify" data-icon="simple-icons:github"></span>
-                </a>
-                <a href="https://guns.lol/vgc" class="social-icon-link" target="_blank" title="guns.lol">
-                    <img src="https://assets.guns.lol/guns_logo_no_background_cropped.png" alt="guns.lol">
-                </a>
-            </div>
-        </div>
-
-        <!-- Music Player -->
-        <div class="music-player" id="musicPlayer">
-            <div class="mp-bg" id="mpBg"></div>
-            <div class="mp-content">
-                <div class="mp-top">
-                    <div class="mp-art">
-                        <img src="" alt="" id="mpArt">
-                    </div>
-                    <div class="mp-info">
-                        <span class="mp-track" id="mpTrack">Not playing</span>
-                        <span class="mp-artist" id="mpArtist"></span>
-                        <div class="mp-progress">
-                            <div class="mp-bar-bg">
-                                <div class="mp-bar-fill" id="mpBarFill"></div>
+        <!-- Section 0: Discord -->
+        <section class="section" data-sec="0">
+            <div class="hero-wrap">
+                <div class="dc-card" id="discordCard">
+                    <div class="dc-top">
+                        <div class="dc-av">
+                            <img src="" alt="" id="avatarImg" class="dc-av-img">
+                            <span id="dcStatusPip" class="dc-status-pip offline"></span>
+                        </div>
+                        <div class="dc-meta">
+                            <div class="dc-name-line">
+                                <span class="dc-name" id="dcUsername">offline</span>
+                                <span id="dcBadges"></span>
+                                <span id="dcClientStatus"></span>
                             </div>
-                            <div class="mp-times">
-                                <span id="mpCurrent">0:00</span>
-                                <span id="mpTotal">0:00</span>
-                            </div>
+                            <div class="dc-tag" id="dcTag"></div>
+                            <div class="dc-last" id="dcLastSeen"></div>
+                        </div>
+                    </div>
+                    <div class="dc-divider"></div>
+                    <div class="dc-activity" id="dcActivity">
+                        <div class="act-empty" id="actBlockNothing">
+                            <span id="activityLabelNothing">no activity</span>
+                        </div>
+                        <div class="act-card" id="actCardMusic">
+                            <a class="act-inner" id="actBlockMusic" href="" target="_blank" rel="noopener">
+                                <div class="act-cover" id="musicCoverWrap">
+                                    <img src="" alt="" id="musicCover" class="cover-img" onerror="this.parentElement.style.display='none'">
+                                </div>
+                                <div class="act-info">
+                                    <div class="act-tag">listening to</div>
+                                    <div class="act-title" id="activitySong"></div>
+                                    <div class="act-sub" id="activityArtist"></div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="act-card" id="actCardGame">
+                            <a class="act-inner" id="actBlockGame" href="" target="_blank" rel="noopener">
+                                <div class="act-cover" id="gameCoverWrap">
+                                    <img src="" alt="" id="gameCover" class="cover-img" onerror="this.parentElement.style.display='none'">
+                                </div>
+                                <div class="act-info">
+                                    <div class="act-tag">playing</div>
+                                    <div class="act-title" id="activityGameName"></div>
+                                    <div class="act-sub" id="activityGameDetails"></div>
+                                    <div class="act-sub" id="activityGameState"></div>
+                                    <div class="act-time" id="activityGameElapsed"></div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="mp-lyrics" id="mpLyrics">
-                    <div class="mp-lyrics-inner" id="mpLyricsInner">
-                        <div class="mp-lyric-placeholder">Waiting for track...</div>
+            </div>
+        </section>
+
+        <!-- Section 1: About -->
+        <section class="section sec-cards" data-sec="1">
+            <div class="sec-inner">
+                <h2 class="sec-title">about me</h2>
+                <div class="card about-card">
+                    <p>hey, im Maxim i go online by vgc.</p>
+                    <p>16, somewhere in Germany.</p>
+                    <p>coding, gaming, music mostly all three.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 2: Recent Plays (Last.fm) -->
+        <section class="section sec-cards" data-sec="2">
+            <div class="sec-inner">
+                <h2 class="sec-title">recent plays</h2>
+                <div class="card recent-card" id="recentCard">
+                    <div class="recent-empty" id="recentEmpty">No tracks yet.</div>
+                    <div class="recent-list" id="recentList"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Skills & Tools -->
+        <section class="section sec-cards" data-sec="3">
+            <div class="sec-inner">
+                <h2 class="sec-title">skills & tools</h2>
+                <div class="card skills-card">
+                    <div class="skills-group">
+                        <div class="skills-label">languages</div>
+                        <div class="skills-pills">
+                            <span class="skill-pill"><span class="iconify" data-icon="simple-icons:rust"></span> Rust</span>
+                            <span class="skill-pill"><span class="iconify" data-icon="simple-icons:cplusplus"></span> C++</span>
+                            <span class="skill-pill"><span class="iconify" data-icon="simple-icons:csharp"></span> C#</span>
+                            <span class="skill-pill"><span class="iconify" data-icon="simple-icons:nodedotjs"></span> Node.js</span>
+                            <span class="skill-pill"><span class="iconify" data-icon="simple-icons:python"></span> Python</span>
+                            <span class="skill-pill"><span class="iconify" data-icon="simple-icons:sqlite"></span> SQL</span>
+                            <span class="skill-pill"><span class="iconify" data-icon="simple-icons:go"></span> Go</span>
+                        </div>
+                    </div>
+                    <div class="skills-group">
+                        <div class="skills-label">tools</div>
+                        <div class="skills-pills">
+                            <span class="skill-pill"><span class="iconify" data-icon="simple-icons:github"></span> GitHub</span>
+                            <span class="skill-pill"><span class="iconify" data-icon="simple-icons:windows"></span> Windows</span>
+                            <span class="skill-pill"><span class="iconify" data-icon="simple-icons:linux"></span> Linux</span>
+                            <span class="skill-pill"><span class="iconify" data-icon="simple-icons:visualstudiocode"></span> VS Code</span>
+                            <span class="skill-pill"><span class="iconify" data-icon="simple-icons:visualstudio"></span> Visual Studio</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-    </div>
+        <!-- Section 4: Links -->
+        <section class="section sec-cards" data-sec="4">
+            <div class="sec-inner">
+                <h2 class="sec-title">links</h2>
+                <div class="card contact-card">
+                    <a href="https://discord.com/users/1494187385058099210" class="contact-item" id="discordLink2" data-color="#5865F2">
+                        <span class="ci-icon-wrap" style="background:#5865F2">
+                            <span class="iconify" data-icon="simple-icons:discord"></span>
+                        </span>
+                        <span class="contact-label">Discord</span>
+                        <span class="contact-sub">@vgc</span>
+                    </a>
+                    <a href="https://github.com/moonvgc" target="_blank" class="contact-item" data-color="#ffffff">
+                        <span class="ci-icon-wrap" style="background:#333">
+                            <span class="iconify" data-icon="simple-icons:github"></span>
+                        </span>
+                        <span class="contact-label">GitHub</span>
+                        <span class="contact-sub">@moonvgc</span>
+                    </a>
+                    <a href="https://www.instagram.com/maxim133.7/" target="_blank" class="contact-item" data-color="#E4405F">
+                        <span class="ci-icon-wrap" style="background:#E4405F">
+                            <span class="iconify" data-icon="simple-icons:instagram"></span>
+                        </span>
+                        <span class="contact-label">Instagram</span>
+                        <span class="contact-sub">@maxim133.7</span>
+                    </a>
+                    <a href="https://www.tiktok.com/@imst1llsober" target="_blank" class="contact-item" data-color="#ffffff">
+                        <span class="ci-icon-wrap" style="background:#333">
+                            <span class="iconify" data-icon="simple-icons:tiktok"></span>
+                        </span>
+                        <span class="contact-label">TikTok</span>
+                        <span class="contact-sub">@imst1llsober</span>
+                    </a>
+                    <a href="https://guns.lol/vgc" target="_blank" class="contact-item" data-color="#a0a0a0">
+                        <span class="ci-icon-wrap" style="background:#555">
+                            <span class="iconify" data-icon="simple-icons:link"></span>
+                        </span>
+                        <span class="contact-label">guns.lol</span>
+                        <span class="contact-sub">@vgc</span>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-    <div class="toast" id="toast">Copied ID</div>
+    </main>
+
+    <div class="toast" id="toast">copied :3</div>
 
     <script>
-        // ── Social hover ──
-        document.querySelectorAll('.social-icon-link .iconify').forEach(el => {
-            el.addEventListener('mouseenter', () => { el.style.color = '#ffffff'; });
-            el.addEventListener('mouseleave', () => { el.style.color = ''; });
-        });
-
-        // ── Discord Copy ──
-        document.getElementById('discordLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            navigator.clipboard.writeText('1494187385058099210').then(() => {
-                const t = document.getElementById('toast');
-                t.classList.add('show');
-                setTimeout(() => t.classList.remove('show'), 1500);
-            });
-        });
-
-        document.getElementById('copyIdBtn').addEventListener('click', () => {
-            navigator.clipboard.writeText('1494187385058099210').then(() => {
-                const t = document.getElementById('toast');
-                t.classList.add('show');
-                setTimeout(() => t.classList.remove('show'), 1500);
-            });
-        });
-
-        // ── Lanyard WebSocket ──
-        const avatarImg = document.getElementById('avatarImg');
-        const profileName = document.getElementById('profileName');
-        const profileTag = document.getElementById('profileTag');
-
-        const statusText = document.getElementById('statusText');
-        const avatarStatusDot = document.getElementById('avatarStatusDot');
-        const customStatusEl = document.getElementById('customStatus');
-        const activitiesEl = document.getElementById('activities');
         const USER_ID = '1494187385058099210';
+        const LASTFM_USER = 'moonvgc';
+        const LASTFM_KEY = '';
+        const MAX_TRACKS = 20;
+        const STORAGE_KEY = 'vgc_recent_tracks';
 
-        const musicPlayer = document.getElementById('musicPlayer');
-        const mpArt = document.getElementById('mpArt');
-        const mpTrack = document.getElementById('mpTrack');
-        const mpArtist = document.getElementById('mpArtist');
-        const mpBarFill = document.getElementById('mpBarFill');
-        const mpCurrent = document.getElementById('mpCurrent');
-        const mpTotal = document.getElementById('mpTotal');
-        const mpBg = document.getElementById('mpBg');
-        const mpLyricsInner = document.getElementById('mpLyricsInner');
+        const avatarImg = document.getElementById('avatarImg');
+        const dcUsername = document.getElementById('dcUsername');
+        const dcTag = document.getElementById('dcTag');
+        const dcBadges = document.getElementById('dcBadges');
+        const dcClientStatus = document.getElementById('dcClientStatus');
+        const dcLastSeen = document.getElementById('dcLastSeen');
+        const dcStatusPip = document.getElementById('dcStatusPip');
+        const activityLabelNothing = document.getElementById('activityLabelNothing');
+        const activitySong = document.getElementById('activitySong');
+        const activityArtist = document.getElementById('activityArtist');
+        const activityGameName = document.getElementById('activityGameName');
+        const activityGameDetails = document.getElementById('activityGameDetails');
+        const activityGameState = document.getElementById('activityGameState');
+        const activityGameElapsed = document.getElementById('activityGameElapsed');
+        const musicCover = document.getElementById('musicCover');
+        const musicCoverWrap = document.getElementById('musicCoverWrap');
+        const gameCover = document.getElementById('gameCover');
+        const gameCoverWrap = document.getElementById('gameCoverWrap');
+        const actBlockNothing = document.getElementById('actBlockNothing');
+        const actBlockMusic = document.getElementById('actBlockMusic');
+        const actBlockGame = document.getElementById('actBlockGame');
+        const actCardMusic = document.getElementById('actCardMusic');
+        const actCardGame = document.getElementById('actCardGame');
 
-        let currentSongId = null;
-        let currentLyrics = [];
-        let progressInterval = null;
+        const sections = document.querySelectorAll('.section');
+        const navDots = document.getElementById('navDots');
+        sections.forEach((sec, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Section ' + (i + 1));
+            dot.addEventListener('click', () => {
+                document.querySelector('.sections').scrollTo({ top: sec.offsetTop, behavior: 'smooth' });
+            });
+            navDots.appendChild(dot);
+        });
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const idx = entry.target.dataset.sec;
+                    entry.target.classList.add('sec-in');
+                    document.querySelectorAll('.nav-dot').forEach((d, i) => {
+                        d.classList.toggle('active', i === parseInt(idx));
+                    });
+                }
+            });
+        }, { threshold: 0.4 });
+        sections.forEach(sec => sectionObserver.observe(sec));
+
+        // Profile icon hover
+        document.querySelectorAll('.pi-link').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                el.style.borderColor = el.dataset.color || 'rgba(255,255,255,0.22)';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.borderColor = '';
+            });
+        });
+
+        // Contact item hover
+        document.querySelectorAll('.contact-item').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                el.style.setProperty('--hover-color', el.dataset.color || 'var(--text-color)');
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.removeProperty('--hover-color');
+            });
+        });
+
+        // Copy ID
+        function copyId(e) {
+            e.preventDefault();
+            navigator.clipboard.writeText(USER_ID).then(() => {
+                const t = document.getElementById('toast');
+                t.classList.add('show');
+                setTimeout(() => t.classList.remove('show'), 1500);
+            });
+        }
+        document.getElementById('discordLink2').addEventListener('click', copyId);
+
+        // Lanyard WebSocket
         let ws = null;
         let hbInterval = null;
-
-        const ACTIVITY_NAMES = { 0: 'Playing', 1: 'Streaming', 2: 'Listening to', 3: 'Watching', 5: 'Competing in' };
-
-        function fmt(sec) {
-            if (!sec || !isFinite(sec)) return '0:00';
-            const m = Math.floor(sec / 60);
-            const s = Math.floor(sec % 60);
-            return m + ':' + String(s).padStart(2, '0');
-        }
-
-        function fetchLyrics(track, artist) {
-            return fetch('https://lrclib.net/api/get?artist_name=' + encodeURIComponent(artist) + '&track_name=' + encodeURIComponent(track))
-                .then(r => r.ok ? r.json() : null).catch(() => null);
-        }
-
-        function parseLRC(lrc) {
-            if (!lrc) return [];
-            return lrc.split('\n').map(line => {
-                const m = line.match(/\[(\d+):(\d+\.\d+)\](.*)/);
-                if (m) { const t = parseInt(m[1]) * 60 + parseFloat(m[2]), text = m[3].trim(); return text ? { time: t, text } : null; }
-                return null;
-            }).filter(Boolean);
-        }
 
         function escapeHtml(text) {
             const d = document.createElement('div');
@@ -177,108 +270,100 @@
             return d.innerHTML;
         }
 
-        function updateMusicPlayer(spotify) {
-            if (!spotify) {
-                musicPlayer.classList.remove('visible');
-                if (progressInterval) { clearInterval(progressInterval); progressInterval = null; }
-                return;
-            }
-            musicPlayer.classList.add('visible');
-            const songId = spotify.track_id, track = spotify.song, artist = spotify.artist;
-            const artUrl = spotify.album_art_url, start = spotify.timestamps.start, end = spotify.timestamps.end;
-            const durationSec = (end - start) / 1000;
-            mpArt.src = artUrl; mpTrack.textContent = track; mpArtist.textContent = artist;
-            mpBg.style.backgroundImage = 'url(' + artUrl + ')'; mpTotal.textContent = fmt(durationSec);
-
-            if (songId !== currentSongId) {
-                currentSongId = songId; currentLyrics = [];
-                mpLyricsInner.innerHTML = '<div class="mp-lyric-placeholder">Loading lyrics...</div>';
-                fetchLyrics(track, artist).then(data => {
-                    if (data?.syncedLyrics) {
-                        currentLyrics = parseLRC(data.syncedLyrics);
-                        mpLyricsInner.innerHTML = currentLyrics.length
-                            ? currentLyrics.map(l => '<div class="mp-lyric">' + escapeHtml(l.text) + '</div>').join('')
-                            : '<div class="mp-lyric-placeholder">No synced lyrics</div>';
-                    } else if (data?.plainLyrics) {
-                        mpLyricsInner.innerHTML = '<div class="mp-lyric-placeholder">' + escapeHtml(data.plainLyrics.replace(/\n/g, '<br>')) + '</div>';
-                    } else { mpLyricsInner.innerHTML = '<div class="mp-lyric-placeholder">No lyrics found</div>'; }
-                }).catch(() => { mpLyricsInner.innerHTML = '<div class="mp-lyric-placeholder">Lyrics unavailable</div>'; });
-            }
-
-            if (progressInterval) clearInterval(progressInterval);
-            progressInterval = setInterval(() => {
-                const elapsed = Math.max(0, (Date.now() - start) / 1000);
-                const pct = Math.min(100, (elapsed / durationSec) * 100);
-                mpBarFill.style.width = pct + '%';
-                mpCurrent.textContent = fmt(Math.min(elapsed, durationSec));
-                const sec = Math.min(elapsed, durationSec);
-                let activeIdx = -1;
-                for (let i = currentLyrics.length - 1; i >= 0; i--) { if (sec >= currentLyrics[i].time) { activeIdx = i; break; } }
-                mpLyricsInner.querySelectorAll('.mp-lyric').forEach((el, idx) => {
-                    el.classList.toggle('active', idx === activeIdx);
-                    if (idx === activeIdx) el.scrollIntoView({ block: 'center', behavior: 'smooth' });
-                });
-            }, 200);
+        function getLanyardAvatar(id, avatar) {
+            return 'https://cdn.discordapp.com/avatars/' + id + '/' + avatar + '.png?size=128';
         }
 
-        function activityIcon(a, spotify) {
-            if (a.assets?.large_image) {
-                const img = a.assets.large_image;
-                if (img.startsWith('spotify:')) return 'https://i.scdn.co/image/' + img.slice(8);
-                if (img.startsWith('mp:external/')) return img.slice(12);
-                if (a.application_id) return 'https://cdn.discordapp.com/app-assets/' + a.application_id + '/' + img + '.png';
-            }
-            if (spotify?.album_art_url) return spotify.album_art_url;
-            return null;
-        }
+        function applyStatus(data) {
+            const d = data.discord_status || 'offline';
+            dcStatusPip.className = 'dc-status-pip ' + d;
 
-        function applyStatus(d) {
-            const status = d.discord_status || 'offline';
-            avatarStatusDot.className = 'dp-status ' + status;
-            const labels = { online: 'online', idle: 'idle', dnd: 'do not disturb', offline: 'offline' };
-            statusText.textContent = labels[status] || 'offline';
-            // status dot is on avatar only
-
-            if (d.discord_user) {
-                const u = d.discord_user;
-                profileName.textContent = u.global_name || u.username;
-                profileTag.textContent = '@' + u.username;
-                if (u.avatar) avatarImg.src = 'https://cdn.discordapp.com/avatars/' + USER_ID + '/' + u.avatar + '.png?size=128';
+            if (data.discord_user) {
+                const u = data.discord_user;
+                avatarImg.src = getLanyardAvatar(USER_ID, u.avatar);
+                dcUsername.textContent = u.global_name || u.username;
+                dcTag.textContent = '@' + (u.username || '');
             }
 
-            const custom = d.activities?.find(a => a.type === 4);
-            if (custom?.state) {
-                let html = '';
-                if (custom.emoji) {
-                    if (custom.emoji.id) {
-                        const ext = custom.emoji.animated ? 'gif' : 'png';
-                        html += '<img class="status-emoji" src="https://cdn.discordapp.com/emojis/' + custom.emoji.id + '.' + ext + '">';
-                    } else if (custom.emoji.name) { html += '<span class="status-emoji">' + custom.emoji.name + '</span>'; }
-                }
-                html += custom.state.replace(/<a?:(\w+):(\d+)>/g, (_, name, id) =>
-                    '<img class="status-emoji" src="https://cdn.discordapp.com/emojis/' + id + '.png">');
-                customStatusEl.innerHTML = html; customStatusEl.style.display = 'flex';
-            } else { customStatusEl.innerHTML = ''; customStatusEl.style.display = 'none'; }
+            dcBadges.innerHTML = '';
+            if (data.discord_user?.public_flags) {
+                const flags = data.discord_user.public_flags;
+                if (flags & 1) dcBadges.innerHTML += '<span class="badge-badge" title="Discord Staff"><span class="iconify" data-icon="simple-icons:discord"></span></span>';
+                if (flags & 2) dcBadges.innerHTML += '<span class="badge-badge" title="Partner"><span class="iconify" data-icon="mdi:star"></span></span>';
+                if (flags & 65536) dcBadges.innerHTML += '<span class="badge-badge" title="Active Developer"><span class="iconify" data-icon="mdi:code-tags"></span></span>';
+            }
 
-            const spotify = d.spotify;
-            updateMusicPlayer(spotify);
+            const clientMap = { desktop: '💻', mobile: '📱', web: '🌐' };
+            const activeClients = Object.keys(clientMap).filter(c => data.active_on_discord_?.[c]);
+            dcClientStatus.textContent = activeClients.map(c => clientMap[c]).join(' ') || '';
 
-            activitiesEl.innerHTML = '';
-            const others = d.activities?.filter(a => a.type !== 4 && !(a.name === 'Spotify' && a.type === 2)) || [];
-            for (const a of others) {
-                const el = document.createElement('div'); el.className = 'activity-item';
-                const icon = activityIcon(a, null);
-                if (icon) { const img = document.createElement('img'); img.className = 'activity-icon'; img.src = icon; img.alt = ''; el.appendChild(img); }
-                else {
-                    const fb = document.createElement('span'); fb.className = 'activity-icon-fallback iconify';
-                    const ICONS = { 0: 'mdi:gamepad-variant-outline', 1: 'mdi:broadcast', 2: 'mdi:music', 3: 'mdi:television', 5: 'mdi:trophy' };
-                    fb.setAttribute('data-icon', ICONS[a.type] || 'mdi:gamepad-variant'); el.appendChild(fb);
+            if (d === 'offline' && data.discord_user?.last_modified) {
+                const diff = Date.now() - data.discord_user.last_modified;
+                const mins = Math.floor(diff / 60000);
+                if (mins < 60) dcLastSeen.textContent = 'last seen ' + mins + 'm ago';
+                else dcLastSeen.textContent = 'last seen ' + Math.floor(mins / 60) + 'h ago';
+            } else {
+                dcLastSeen.textContent = '';
+            }
+
+            const others = data.activities?.filter(a => a.type !== 4) || [];
+            const spotify = data.spotify;
+
+            actBlockNothing.style.display = 'none';
+            actCardMusic.style.display = 'none';
+            actCardGame.style.display = 'none';
+            musicCoverWrap.style.display = '';
+            gameCoverWrap.style.display = '';
+            musicCover.src = '';
+            gameCover.src = '';
+            activitySong.textContent = '';
+            activityArtist.textContent = '';
+            activityGameName.textContent = '';
+            activityGameDetails.textContent = '';
+            activityGameState.textContent = '';
+            activityGameElapsed.textContent = '';
+
+            if (spotify) {
+                actCardMusic.style.display = 'block';
+                activitySong.textContent = spotify.song;
+                activityArtist.textContent = spotify.artist;
+                actBlockMusic.href = 'https://open.spotify.com/track/' + spotify.track_id;
+                if (spotify.album_art_url) {
+                    musicCover.src = spotify.album_art_url;
+                } else {
+                    musicCoverWrap.style.display = 'none';
                 }
-                const text = document.createElement('div'); text.className = 'activity-text';
-                const l1 = document.createElement('div'); l1.className = 'activity-line1'; l1.textContent = (ACTIVITY_NAMES[a.type] || '') + ' ' + a.name;
-                const l2 = document.createElement('div'); l2.className = 'activity-line2'; l2.textContent = [a.details, a.state].filter(Boolean).join(' — ');
-                text.appendChild(l1); text.appendChild(l2); el.appendChild(text);
-                activitiesEl.appendChild(el);
+            }
+
+            const game = others.find(a => a.type === 0);
+            if (game) {
+                actCardGame.style.display = 'block';
+                activityGameName.textContent = game.name;
+                activityGameDetails.textContent = game.details || '';
+                activityGameState.textContent = game.state || '';
+                actBlockGame.href = game.application_id ? 'https://discord.com/application-directory/' + game.application_id : '';
+                if (game.timestamps?.start) {
+                    const elapsed = Math.floor((Date.now() - game.timestamps.start) / 1000);
+                    const h = Math.floor(elapsed / 3600);
+                    const m = Math.floor((elapsed % 3600) / 60);
+                    activityGameElapsed.textContent = (h ? h + 'h ' : '') + m + 'm elapsed';
+                }
+                if (game.assets?.large_image && game.application_id) {
+                    const img = game.assets.large_image;
+                    if (!img.startsWith('spotify:') && !img.startsWith('mp:')) {
+                        gameCover.src = 'https://cdn.discordapp.com/app-assets/' + game.application_id + '/' + img + '.png';
+                    } else {
+                        gameCoverWrap.style.display = 'none';
+                    }
+                } else {
+                    gameCoverWrap.style.display = 'none';
+                }
+            }
+
+            if (!spotify && !game) {
+                actBlockNothing.style.display = 'block';
+                if (d === 'offline') activityLabelNothing.textContent = 'offline';
+                else activityLabelNothing.textContent = 'no activity';
             }
         }
 
@@ -295,14 +380,89 @@
                             clearInterval(hbInterval);
                             hbInterval = setInterval(() => { if (ws?.readyState === 1) ws.send(JSON.stringify({ op: 3 })); }, msg.d.heartbeat_interval);
                         }
-                        if (msg.op === 3 && ws?.readyState === 1) ws.send(JSON.stringify({ op: 3 }));
                     } catch (err) { console.warn('WS error:', err); }
                 };
                 ws.onclose = () => { clearInterval(hbInterval); ws = null; setTimeout(connectWS, 3000); };
                 ws.onerror = () => { if (ws) ws.close(); };
             } catch { setTimeout(connectWS, 3000); }
         }
+
         connectWS();
+
+        // Recent Tracks (Last.fm)
+        function getTracks() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
+        }
+
+        function saveTracks(tracks) {
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(tracks)); } catch {}
+        }
+
+        function fmtTime(ts) {
+            const diff = Date.now() - ts;
+            const mins = Math.floor(diff / 60000);
+            if (mins < 1) return 'just now';
+            if (mins < 60) return mins + 'm ago';
+            const hours = Math.floor(mins / 60);
+            if (hours < 24) return hours + 'h ago';
+            const days = Math.floor(hours / 24);
+            return days + 'd ago';
+        }
+
+        function renderTracks() {
+            const tracks = getTracks();
+            const list = document.getElementById('recentList');
+            const empty = document.getElementById('recentEmpty');
+            if (!list) return;
+            if (tracks.length === 0) {
+                list.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+            empty.style.display = 'none';
+            list.innerHTML = tracks.map((t, i) =>
+                '<a class="recent-item" href="' + t.url + '" target="_blank">' +
+                    '<span class="recent-idx">' + String(i + 1).padStart(2, '0') + '</span>' +
+                    '<span class="recent-art-wrap"><img class="recent-art" src="' + t.artUrl + '" alt="" loading="lazy" onerror="this.style.display=\'none\'"></span>' +
+                    '<div class="recent-info">' +
+                        '<span class="recent-track">' + escapeHtml(t.track) + '</span>' +
+                        '<span class="recent-artist">' + escapeHtml(t.artist) + '</span>' +
+                    '</div>' +
+                    '<span class="recent-time">' + fmtTime(t.playedAt) + '</span>' +
+                '</a>'
+            ).join('');
+        }
+
+        async function fetchLastfm() {
+            try {
+                const res = await fetch('/api/lastfm');
+                const data = await res.json();
+                if (data?.recenttracks?.track) {
+                    let tracks = getTracks();
+                    data.recenttracks.track.forEach(t => {
+                        const artUrl = t.image?.[2]?.['#text'] || t.image?.[1]?.['#text'] || '';
+                        const entry = {
+                            trackId: t.url,
+                            track: t.name,
+                            artist: t.artist['#text'],
+                            artUrl: artUrl,
+                            playedAt: parseInt(t.date?.uts || '0') * 1000 || Date.now(),
+                            url: t.url,
+                        };
+                        const exists = tracks.some(e => e.trackId === entry.trackId && e.artist === entry.artist);
+                        if (!exists) tracks.push(entry);
+                    });
+                    tracks.sort((a, b) => b.playedAt - a.playedAt);
+                    if (tracks.length > MAX_TRACKS) tracks = tracks.slice(0, MAX_TRACKS);
+                    saveTracks(tracks);
+                    renderTracks();
+                }
+            } catch {}
+        }
+
+        renderTracks();
+        fetchLastfm();
+        setInterval(fetchLastfm, 60000);
     </script>
 
 </body>
