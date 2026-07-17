@@ -104,6 +104,7 @@
                         <div class="stats-hero">
                             <span class="stats-hero-num" id="statsScrobbles">0</span>
                             <span class="stats-hero-label">scrobbles</span>
+                            <span class="stats-hero-sub" id="statsTimeListened"></span>
                         </div>
                         <div class="stats-cols">
                             <div class="stats-col">
@@ -504,7 +505,14 @@
                 empty.style.display = 'none';
                 body.style.display = '';
 
-                document.getElementById('statsScrobbles').textContent = parseInt(data.playcount || 0).toLocaleString('de-DE');
+                const scrobbles = parseInt(data.playcount || 0);
+                document.getElementById('statsScrobbles').textContent = scrobbles.toLocaleString('de-DE');
+
+                const totalMins = scrobbles * 3.5;
+                const timeEl = document.getElementById('statsTimeListened');
+                if (totalMins < 60) timeEl.textContent = '~' + Math.round(totalMins) + ' mins listened';
+                else if (totalMins < 1440) timeEl.textContent = '~' + Math.round(totalMins / 60) + ' hrs listened';
+                else timeEl.textContent = '~' + Math.round(totalMins / 1440) + ' days listened';
 
                 const artistList = document.getElementById('statsArtists');
                 artistList.innerHTML = data.topArtists.map((a, i) =>
